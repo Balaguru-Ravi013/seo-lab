@@ -32,3 +32,12 @@ Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` when you need
 - Product helpers: `lib/products.ts`
 - Product images: `public/images/products/`
 - No backend, auth, cart, or payments by design
+
+## Documentation
+
+- `docs/intern-learning-guide.md` — **start here for interns**: how to use the project + SEO/AEO topic → file:line map
+- `docs/baseline-audit.md` — baseline technical SEO gaps and evidence
+- `docs/seo-aeo-comparison.md` — measured baseline vs optimized comparison
+- `docs/aeo-optimization.md` — AEO goals, implementation, established vs emerging practices, evaluation
+- `docs/evidence/` — HTML snapshots and Lighthouse artifacts
+- `/llms.txt` and `/llms-full.txt` — experimental dynamic LLM index files (not a ranking requirement)
