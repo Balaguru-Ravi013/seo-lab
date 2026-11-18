@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ProductGrid } from "@/components/product/ProductGrid";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getAvailabilityLabel } from "@/lib/availability";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
 import { formatPrice, getFeaturedProducts } from "@/lib/products";
 import { buildPageMetadata, SITE_NAME, SITE_TAGLINE } from "@/lib/seo";
 
@@ -41,6 +43,21 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="mx-auto w-full max-w-6xl space-y-4 px-6 pt-14">
+        <h2 className="text-2xl font-semibold">What Pacewright sells</h2>
+        <p className="max-w-3xl text-muted">
+          Pacewright is a fictional specialty retailer for running shoes. The catalog covers road,
+          trail, racing, daily trainer, and stability categories from brands such as AeroPeak,
+          Trailform, UrbanStride, Meridian, and Fluxion. Every product page lists price in INR,
+          availability, sizes, materials, and specifications from the same local dataset.
+        </p>
+        <p>
+          <Link href="/shoes" className="text-accent hover:underline">
+            Explore the running shoes catalog
+          </Link>
+        </p>
+      </section>
+
       <section className="mx-auto w-full max-w-6xl space-y-8 px-6 py-14">
         <div className="space-y-2">
           <h2 className="text-2xl font-semibold">Featured running shoes</h2>
@@ -53,6 +70,8 @@ export default function Home() {
           </Link>
         </p>
       </section>
+
+      <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
     </main>
   );
 }

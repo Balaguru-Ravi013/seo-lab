@@ -1,15 +1,29 @@
 import Link from "next/link";
 import { ProductBreadcrumbs } from "@/components/product/ProductBreadcrumbs";
 import { ProductCard } from "@/components/product/ProductCard";
+import { ProductComparison } from "@/components/product/ProductComparison";
 import { ProductGallery } from "@/components/product/ProductGallery";
+import { ProductQuestions } from "@/components/product/ProductQuestions";
+import { ProductSummary } from "@/components/product/ProductSummary";
 import { SizeOptions } from "@/components/product/SizeOptions";
 import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  getComparisonPoints,
+  getProductKeyFacts,
+  getProductQuestions,
+  getProductSummary,
+} from "@/lib/aeo";
 import { getAvailabilityLabel } from "@/lib/availability";
-import { breadcrumbJsonLd, productJsonLd } from "@/lib/jsonld";
+import { productPageJsonLd } from "@/lib/jsonld";
 import { formatPrice, getRelatedProducts } from "@/lib/products";
 import type { Product } from "@/types/product";
 
 export function ProductDetail({ product }: { product: Product }) {
+  const summary = getProductSummary(product);
+  const facts = getProductKeyFacts(product);
+  const questions = getProductQuestions(product);
+  const comparisons = getComparisonPoints(product);
+
   const related = getRelatedProducts(product.slug).map((item) => ({
     slug: item.slug,
     name: item.name,
@@ -34,7 +48,21 @@ export function ProductDetail({ product }: { product: Product }) {
 
         <div className="space-y-5">
           <header className="space-y-2">
-            <p className="text-sm uppercase tracking-wide text-muted">{product.brand}</p>
+            <p className="text-sm uppercase tracking-wide text-muted">
+              <Link
+                href={`/shoes?brand=${encodeURIComponent(product.brand)}`}
+                className="hover:text-accent"
+              >
+                {product.brand}
+              </Link>
+              {" · "}
+              <Link
+                href={`/shoes?category=${encodeURIComponent(product.category)}`}
+                className="hover:text-accent"
+              >
+                {product.category}
+              </Link>
+            </p>
             <h1 className="text-3xl font-semibold tracking-tight">{product.name}</h1>
             <p className="text-xl">{formatPrice(product.price, product.currency)}</p>
             <p className="text-sm text-muted">
@@ -42,7 +70,14 @@ export function ProductDetail({ product }: { product: Product }) {
             </p>
           </header>
 
-          <p className="text-muted">{product.description}</p>
+          <ProductSummary summary={summary} facts={facts} />
+
+          <section className="space-y-2" aria-labelledby="description-heading">
+            <h2 id="description-heading" className="text-sm font-medium">
+              Product description
+            </h2>
+            <p className="text-muted">{product.description}</p>
+          </section>
 
           <SizeOptions sizes={product.sizes} />
 
@@ -82,8 +117,31 @@ export function ProductDetail({ product }: { product: Product }) {
               </div>
             </dl>
           </section>
+
+          <p className="text-sm text-muted">
+            Sold by{" "}
+            <Link href="/" className="text-accent hover:underline">
+              Pacewright
+            </Link>
+            . Browse more from{" "}
+            <Link
+              href={`/shoes?brand=${encodeURIComponent(product.brand)}`}
+              className="text-accent hover:underline"
+            >
+              {product.brand}
+            </Link>{" "}
+            or explore the full{" "}
+            <Link href="/shoes" className="text-accent hover:underline">
+              running shoes catalog
+            </Link>
+            .
+          </p>
         </div>
       </div>
+
+      <ProductQuestions questions={questions} />
+
+      <ProductComparison productName={product.name} comparisons={comparisons} />
 
       {related.length > 0 ? (
         <section className="space-y-4" aria-labelledby="related-heading">
@@ -103,16 +161,7 @@ export function ProductDetail({ product }: { product: Product }) {
         </section>
       ) : null}
 
-      <JsonLd
-        data={[
-          breadcrumbJsonLd([
-            { name: "Home", path: "/" },
-            { name: "Running shoes", path: "/shoes" },
-            { name: product.name, path: `/shoes/${product.slug}` },
-          ]),
-          productJsonLd(product),
-        ]}
-      />
+      <JsonLd data={productPageJsonLd(product)} />
     </article>
   );
 }

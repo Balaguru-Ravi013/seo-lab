@@ -1,0 +1,12 @@
+{
+  "url": "http://127.0.0.1:3010/",
+  "seo": 100,
+  "performance": 100,
+  "accessibility": 100,
+  "lcp_ms": 754.9221,
+  "cls": 0,
+  "tbt_ms": 3,
+  "inp": "Not measured",
+  "seo_audit_failures": [],
+  "a11y_failures": []
+}

@@ -1,0 +1,128 @@
+{
+  "home": {
+    "path": "/",
+    "status": 200,
+    "title": "Pacewright Running Shoes",
+    "description": "Running shoes for road, trail, and race day. Explore featured road, trail, and racing shoes with clear specs and pricing in INR.",
+    "has_canonical": true,
+    "og_count": 10,
+    "twitter_count": 4,
+    "jsonld_count": 1,
+    "jsonld_types": [
+      "Organization",
+      "WebSite"
+    ],
+    "h1": [
+      "Pacewright"
+    ],
+    "has_main": true,
+    "product_name_in_html": true,
+    "full_description_in_html": false,
+    "at_a_glance": false,
+    "common_questions": false,
+    "img_empty_alt_count": 0,
+    "next_image_present": false
+  },
+  "shoes": {
+    "path": "/shoes",
+    "status": 200,
+    "title": "Running Shoes | Pacewright",
+    "description": "Browse Pacewright running shoes by brand and category. Compare road, trail, racing, daily trainer, and stability shoes with INR pricing.",
+    "has_canonical": true,
+    "og_count": 10,
+    "twitter_count": 4,
+    "jsonld_count": 1,
+    "jsonld_types": [
+      "Organization",
+      "ItemList"
+    ],
+    "h1": [
+      "Running shoes"
+    ],
+    "has_main": true,
+    "product_name_in_html": true,
+    "full_description_in_html": false,
+    "at_a_glance": false,
+    "common_questions": false,
+    "img_empty_alt_count": 0,
+    "next_image_present": false
+  },
+  "pdp": {
+    "path": "/shoes/aeropeak-vapor-stride",
+    "status": 200,
+    "title": "AeroPeak Vapor Stride by AeroPeak | Pacewright",
+    "description": "Lightweight daily road shoe with responsive foam. Priced at 12,999 INR.",
+    "has_canonical": true,
+    "og_count": 10,
+    "twitter_count": 4,
+    "jsonld_count": 1,
+    "jsonld_types": [
+      "BreadcrumbList",
+      "Product"
+    ],
+    "h1": [
+      "AeroPeak Vapor Stride"
+    ],
+    "has_main": true,
+    "product_name_in_html": true,
+    "full_description_in_html": true,
+    "at_a_glance": true,
+    "common_questions": true,
+    "img_empty_alt_count": 0,
+    "next_image_present": false
+  },
+  "pdp2": {
+    "path": "/shoes/trailform-ridge-grip",
+    "status": 200,
+    "title": "Trailform Ridge Grip by Trailform | Pacewright",
+    "description": "Protective trail shoe with multi-surface lugs. Priced at 14,999 INR.",
+    "has_canonical": true,
+    "og_count": 10,
+    "twitter_count": 4,
+    "jsonld_count": 1,
+    "jsonld_types": [
+      "BreadcrumbList",
+      "Product"
+    ],
+    "h1": [
+      "Trailform Ridge Grip"
+    ],
+    "has_main": true,
+    "product_name_in_html": true,
+    "full_description_in_html": false,
+    "at_a_glance": true,
+    "common_questions": true,
+    "img_empty_alt_count": 0,
+    "next_image_present": false
+  },
+  "missing": {
+    "path": "/shoes/does-not-exist",
+    "status": 404,
+    "title": "Pacewright Running Shoes",
+    "description": "Running shoes for road, trail, and race day. Shop road, trail, racing, and daily trainer shoes from Pacewright.",
+    "has_canonical": false,
+    "og_count": 5,
+    "twitter_count": 3,
+    "jsonld_count": 0,
+    "jsonld_types": [],
+    "h1": [],
+    "has_main": false,
+    "product_name_in_html": false,
+    "full_description_in_html": false,
+    "at_a_glance": false,
+    "common_questions": false,
+    "img_empty_alt_count": 0,
+    "next_image_present": false,
+    "note": "Confirmed via curl GET HTTP 404"
+  },
+  "sitemap": {
+    "path": "/sitemap.xml",
+    "status": 200,
+    "preview": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n<url>\n<loc>http://localhost:3000</loc>\n<lastmod>2026-11-18T03:06:10.094Z</lastmod>\n<changefreq>weekly</changefreq>\n<priority>1</priority>\n</"
+  },
+  "robots": {
+    "path": "/robots.txt",
+    "status": 200,
+    "preview": "User-Agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: http://localhost:3000/sitemap.xml\n"
+  }
+}

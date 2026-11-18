@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
 import { SITE_NAME, SITE_TAGLINE } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
@@ -49,7 +47,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <div className="flex-1">{children}</div>
         <SiteFooter />
-        <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       </body>
     </html>
   );
