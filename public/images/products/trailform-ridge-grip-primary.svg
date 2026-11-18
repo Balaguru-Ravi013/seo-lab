@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Trailform Ridge Grip (primary)">
+  <rect width="1200" height="900" fill="#f4f1ec"/>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#556b2f"/>
+      <stop offset="100%" stop-color="#c4a484"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(600 470) rotate(0) translate(-600 -470)">
+    <ellipse cx="620" cy="620" rx="360" ry="28" fill="#00000018"/>
+    <path d="M260 560 C320 470, 420 430, 560 435 C720 440, 860 470, 970 520 C1010 540, 1020 575, 980 590 C820 640, 650 655, 470 640 C360 632, 290 610, 260 560 Z" fill="url(#g)"/>
+    <path d="M300 545 C380 500, 520 485, 680 500 C790 510, 880 535, 940 560" fill="none" stroke="#ffffff55" stroke-width="10" stroke-linecap="round"/>
+    <path d="M280 575 C360 610, 520 630, 720 625 C840 622, 930 600, 990 575" fill="#c4a484"/>
+    <path d="M330 520 C360 480, 410 455, 470 450 C510 447, 545 460, 560 490" fill="#c4a484" opacity="0.9"/>
+    <circle cx="430" cy="500" r="10" fill="#ffffff88"/>
+    <circle cx="470" cy="495" r="10" fill="#ffffff88"/>
+    <circle cx="510" cy="498" r="10" fill="#ffffff88"/>
+  </g>
+  <text x="60" y="80" font-family="Georgia, serif" font-size="36" fill="#1a1a1a">Trailform Ridge Grip</text>
+  <text x="60" y="120" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#666">primary · Pacewright</text>
+</svg>
