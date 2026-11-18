@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter, usePathname } from "next/navigation";
 import type { ProductCategory, ProductSort } from "@/types/product";
 
 interface ProductToolbarProps {
@@ -8,21 +9,43 @@ interface ProductToolbarProps {
   brand: string;
   category: string;
   sort: ProductSort;
-  onBrandChange: (value: string) => void;
-  onCategoryChange: (value: string) => void;
-  onSortChange: (value: ProductSort) => void;
 }
 
+function buildQuery({
+  brand,
+  category,
+  sort,
+}: {
+  brand: string;
+  category: string;
+  sort: ProductSort;
+}): string {
+  const params = new URLSearchParams();
+  if (brand) params.set("brand", brand);
+  if (category) params.set("category", category);
+  if (sort && sort !== "name-asc") params.set("sort", sort);
+  const query = params.toString();
+  return query ? `?${query}` : "";
+}
+
+/**
+ * Client island for filter/sort controls.
+ * Updates the URL so the Server Component PLP can render matching products in HTML.
+ */
 export function ProductToolbar({
   brands,
   categories,
   brand,
   category,
   sort,
-  onBrandChange,
-  onCategoryChange,
-  onSortChange,
 }: ProductToolbarProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  function navigate(next: { brand: string; category: string; sort: ProductSort }) {
+    router.push(`${pathname}${buildQuery(next)}`);
+  }
+
   return (
     <div className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-4 md:flex-row md:items-end md:justify-between">
       <div className="grid flex-1 gap-3 sm:grid-cols-2">
@@ -31,7 +54,9 @@ export function ProductToolbar({
           <select
             className="rounded-md border border-border bg-background px-3 py-2"
             value={brand}
-            onChange={(event) => onBrandChange(event.target.value)}
+            onChange={(event) =>
+              navigate({ brand: event.target.value, category, sort })
+            }
           >
             <option value="">All brands</option>
             {brands.map((item) => (
@@ -47,7 +72,9 @@ export function ProductToolbar({
           <select
             className="rounded-md border border-border bg-background px-3 py-2"
             value={category}
-            onChange={(event) => onCategoryChange(event.target.value)}
+            onChange={(event) =>
+              navigate({ brand, category: event.target.value, sort })
+            }
           >
             <option value="">All categories</option>
             {categories.map((item) => (
@@ -64,7 +91,13 @@ export function ProductToolbar({
         <select
           className="rounded-md border border-border bg-background px-3 py-2"
           value={sort}
-          onChange={(event) => onSortChange(event.target.value as ProductSort)}
+          onChange={(event) =>
+            navigate({
+              brand,
+              category,
+              sort: event.target.value as ProductSort,
+            })
+          }
         >
           <option value="name-asc">Name</option>
           <option value="price-asc">Price: low to high</option>

@@ -1,0 +1,99 @@
+{
+  "opt_home": {
+    "path": "/",
+    "status": 200,
+    "title": "Pacewright Running Shoes",
+    "has_canonical": true,
+    "og_count": 10,
+    "twitter_count": 4,
+    "jsonld_count": 2,
+    "h1": [
+      "Pacewright"
+    ],
+    "has_product_name": true,
+    "has_description_chunk": false,
+    "has_main": true,
+    "has_view_product_cta": true,
+    "body_preview": null
+  },
+  "opt_shoes": {
+    "path": "/shoes",
+    "status": 200,
+    "title": "Running Shoes | Pacewright",
+    "has_canonical": true,
+    "og_count": 10,
+    "twitter_count": 4,
+    "jsonld_count": 6,
+    "h1": [
+      "Running shoes"
+    ],
+    "has_product_name": true,
+    "has_description_chunk": false,
+    "has_main": true,
+    "has_view_product_cta": true,
+    "body_preview": null
+  },
+  "opt_pdp": {
+    "path": "/shoes/aeropeak-vapor-stride",
+    "status": 200,
+    "title": "AeroPeak Vapor Stride by AeroPeak | Pacewright",
+    "has_canonical": true,
+    "og_count": 10,
+    "twitter_count": 4,
+    "jsonld_count": 4,
+    "h1": [
+      "AeroPeak Vapor Stride"
+    ],
+    "has_product_name": true,
+    "has_description_chunk": true,
+    "has_main": true,
+    "has_view_product_cta": true,
+    "body_preview": null
+  },
+  "opt_missing": {
+    "path": "/shoes/does-not-exist",
+    "status": 404,
+    "title": "Pacewright Running Shoes",
+    "has_canonical": false,
+    "og_count": 5,
+    "twitter_count": 3,
+    "jsonld_count": 2,
+    "h1": [],
+    "has_product_name": false,
+    "has_description_chunk": false,
+    "has_main": false,
+    "has_view_product_cta": true,
+    "body_preview": null,
+    "note": "Confirmed via curl GET/HEAD and urllib; real HTTP 404 with noindex."
+  },
+  "opt_sitemap": {
+    "path": "/sitemap.xml",
+    "status": 200,
+    "title": null,
+    "has_canonical": false,
+    "og_count": 0,
+    "twitter_count": 0,
+    "jsonld_count": 0,
+    "h1": [],
+    "has_product_name": false,
+    "has_description_chunk": false,
+    "has_main": false,
+    "has_view_product_cta": false,
+    "body_preview": "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"> <url> <loc>http://localhost:3000</loc> <lastmod>2026-11-18T02:09:37.521Z</lastmo"
+  },
+  "opt_robots": {
+    "path": "/robots.txt",
+    "status": 200,
+    "title": null,
+    "has_canonical": false,
+    "og_count": 0,
+    "twitter_count": 0,
+    "jsonld_count": 0,
+    "h1": [],
+    "has_product_name": false,
+    "has_description_chunk": false,
+    "has_main": false,
+    "has_view_product_cta": false,
+    "body_preview": "User-Agent: * Allow: / Disallow: /api/  Sitemap: http://localhost:3000/sitemap.xml "
+  }
+}

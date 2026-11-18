@@ -1,108 +1,93 @@
-"use client";
-
-import { useEffect, useMemo, useState } from "react";
 import { ProductToolbar } from "@/components/filters/ProductToolbar";
 import { ProductGrid } from "@/components/product/ProductGrid";
-import { formatPrice } from "@/lib/products";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getAvailabilityLabel } from "@/lib/availability";
-import type { Product, ProductCategory, ProductSort } from "@/types/product";
+import { itemListJsonLd } from "@/lib/jsonld";
+import {
+  filterProducts,
+  formatPrice,
+  getBrands,
+  getCategories,
+} from "@/lib/products";
+import type { ProductCategory, ProductSort } from "@/types/product";
 
-interface CatalogResponse {
-  items: Product[];
-  total: number;
-  brands: string[];
-  categories: ProductCategory[];
+const SORTS = new Set<ProductSort>(["price-asc", "price-desc", "name-asc"]);
+const CATEGORIES = new Set<ProductCategory>([
+  "Road",
+  "Trail",
+  "Racing",
+  "Daily Trainer",
+  "Stability",
+]);
+
+type SearchParams = {
+  brand?: string | string[];
+  category?: string | string[];
+  sort?: string | string[];
+};
+
+function firstValue(value: string | string[] | undefined): string {
+  if (Array.isArray(value)) {
+    return value[0] ?? "";
+  }
+  return value ?? "";
 }
 
-export function ShoesCatalog() {
-  const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState("");
-  const [sort, setSort] = useState<ProductSort>("name-asc");
-  const [data, setData] = useState<CatalogResponse | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+export async function ShoesCatalog({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const params = await searchParams;
+  const brand = firstValue(params.brand);
+  const categoryValue = firstValue(params.category);
+  const sortValue = firstValue(params.sort);
 
-  const query = useMemo(() => {
-    const params = new URLSearchParams();
-    if (brand) params.set("brand", brand);
-    if (category) params.set("category", category);
-    params.set("sort", sort);
-    return params.toString();
-  }, [brand, category, sort]);
+  const category =
+    categoryValue && CATEGORIES.has(categoryValue as ProductCategory)
+      ? (categoryValue as ProductCategory)
+      : undefined;
+  const sort =
+    sortValue && SORTS.has(sortValue as ProductSort)
+      ? (sortValue as ProductSort)
+      : "name-asc";
 
-  useEffect(() => {
-    let cancelled = false;
+  const products = filterProducts({
+    brand: brand || undefined,
+    category,
+    sort,
+  });
 
-    async function loadCatalog() {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const response = await fetch(`/api/products?${query}`);
-        if (!response.ok) {
-          throw new Error("Unable to load products");
-        }
-        const json = (await response.json()) as CatalogResponse;
-        if (!cancelled) {
-          setData(json);
-        }
-      } catch {
-        if (!cancelled) {
-          setError("Could not load the product catalog.");
-          setData(null);
-        }
-      } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
-      }
-    }
-
-    void loadCatalog();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [query]);
-
-  const cards =
-    data?.items.map((product) => ({
-      slug: product.slug,
-      name: product.name,
-      brand: product.brand,
-      priceLabel: formatPrice(product.price, product.currency),
-      image: product.images[0],
-      availabilityLabel: getAvailabilityLabel(product.availability),
-    })) ?? [];
+  const cards = products.map((product) => ({
+    slug: product.slug,
+    name: product.name,
+    brand: product.brand,
+    priceLabel: formatPrice(product.price, product.currency),
+    image: product.images[0],
+    availabilityLabel: getAvailabilityLabel(product.availability),
+  }));
 
   return (
     <div className="space-y-6">
       <ProductToolbar
-        brands={data?.brands ?? []}
-        categories={data?.categories ?? []}
+        brands={getBrands()}
+        categories={getCategories()}
         brand={brand}
-        category={category}
+        category={category ?? ""}
         sort={sort}
-        onBrandChange={setBrand}
-        onCategoryChange={setCategory}
-        onSortChange={setSort}
       />
 
-      <div className="text-sm text-muted">
-        {loading ? "Loading products…" : `${data?.total ?? 0} products`}
-      </div>
+      <p className="text-sm text-muted">
+        {products.length} {products.length === 1 ? "product" : "products"}
+      </p>
 
-      {error ? (
-        <div className="rounded-xl border border-border bg-surface px-6 py-10 text-center text-muted">
-          {error}
-        </div>
-      ) : loading ? (
-        <div className="rounded-xl border border-border bg-surface px-6 py-16 text-center text-muted">
-          Loading catalog…
-        </div>
-      ) : (
-        <ProductGrid products={cards} />
-      )}
+      <ProductGrid products={cards} />
+      <JsonLd
+        data={itemListJsonLd(products, {
+          name: "Pacewright running shoes",
+          path: "/shoes",
+        })}
+      />
     </div>
   );
 }

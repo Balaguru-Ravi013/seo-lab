@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
+import { SITE_NAME, SITE_TAGLINE } from "@/lib/seo";
+import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,13 +18,25 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-/**
- * Baseline metadata intentionally remains generic across all routes.
- * Unique titles, descriptions, canonicals, and social tags arrive in the optimized branch.
- */
 export const metadata: Metadata = {
-  title: "Online Store",
-  description: "Shop our products online.",
+  metadataBase: new URL(getSiteUrl()),
+  title: {
+    default: `${SITE_NAME} Running Shoes`,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: `${SITE_TAGLINE}. Shop road, trail, racing, and daily trainer shoes from Pacewright.`,
+  openGraph: {
+    siteName: SITE_NAME,
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -33,6 +49,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <div className="flex-1">{children}</div>
         <SiteFooter />
+        <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       </body>
     </html>
   );
