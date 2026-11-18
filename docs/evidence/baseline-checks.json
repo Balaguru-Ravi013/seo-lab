@@ -1,0 +1,124 @@
+{
+  "home": {
+    "path": "/",
+    "status": 200,
+    "title": "Online Store",
+    "has_description_meta": true,
+    "description_tag": "<meta name=\"description\" content=\"Shop our products online.\"/>",
+    "has_canonical": false,
+    "canonical_tag": null,
+    "og_tags_count": 0,
+    "twitter_tags_count": 0,
+    "jsonld_count": 0,
+    "h1_count": 0,
+    "h1_text": [],
+    "robots_meta": null,
+    "product_markers_in_initial_html": {
+      "AeroPeak Vapor Stride": true,
+      "Lightweight daily road shoe": false,
+      "Nitrogen-infused": false,
+      "\u20b912,999": true,
+      "12999": false
+    },
+    "img_empty_alt_count": 4,
+    "generic_view_link_matches": 5,
+    "content_length": 19361
+  },
+  "shoes": {
+    "path": "/shoes",
+    "status": 200,
+    "title": "Online Store",
+    "has_description_meta": true,
+    "description_tag": "<meta name=\"description\" content=\"Shop our products online.\"/>",
+    "has_canonical": false,
+    "canonical_tag": null,
+    "og_tags_count": 0,
+    "twitter_tags_count": 0,
+    "jsonld_count": 0,
+    "h1_count": 0,
+    "h1_text": [],
+    "robots_meta": null,
+    "product_markers_in_initial_html": {
+      "AeroPeak Vapor Stride": false,
+      "Lightweight daily road shoe": false,
+      "Nitrogen-infused": false,
+      "\u20b912,999": false,
+      "12999": false
+    },
+    "img_empty_alt_count": 0,
+    "generic_view_link_matches": 0,
+    "content_length": 10962
+  },
+  "pdp": {
+    "path": "/shoes/aeropeak-vapor-stride",
+    "status": 200,
+    "title": "Online Store",
+    "has_description_meta": true,
+    "description_tag": "<meta name=\"description\" content=\"Shop our products online.\"/>",
+    "has_canonical": false,
+    "canonical_tag": null,
+    "og_tags_count": 0,
+    "twitter_tags_count": 0,
+    "jsonld_count": 0,
+    "h1_count": 0,
+    "h1_text": [],
+    "robots_meta": null,
+    "product_markers_in_initial_html": {
+      "AeroPeak Vapor Stride": false,
+      "Lightweight daily road shoe": false,
+      "Nitrogen-infused": false,
+      "\u20b912,999": false,
+      "12999": false
+    },
+    "img_empty_alt_count": 0,
+    "generic_view_link_matches": 0,
+    "content_length": 18006
+  },
+  "missing": {
+    "path": "/shoes/does-not-exist",
+    "status": 200,
+    "title": "Online Store",
+    "has_description_meta": true,
+    "description_tag": "<meta name=\"description\" content=\"Shop our products online.\"/>",
+    "has_canonical": false,
+    "canonical_tag": null,
+    "og_tags_count": 0,
+    "twitter_tags_count": 0,
+    "jsonld_count": 0,
+    "h1_count": 0,
+    "h1_text": [],
+    "robots_meta": null,
+    "product_markers_in_initial_html": {
+      "AeroPeak Vapor Stride": false,
+      "Lightweight daily road shoe": false,
+      "Nitrogen-infused": false,
+      "\u20b912,999": false,
+      "12999": false
+    },
+    "img_empty_alt_count": 0,
+    "generic_view_link_matches": 0,
+    "content_length": 17971
+  },
+  "/sitemap.xml": {
+    "status": "error",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "/robots.txt": {
+    "status": "error",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "api_products": {
+    "path": "/api/products",
+    "status": 200,
+    "preview": "{\"items\":[{\"id\":\"pw-009\",\"slug\":\"aeropeak-sprint-lite\",\"name\":\"AeroPeak Sprint Lite\",\"brand\":\"AeroPeak\",\"sku\":\"AP-SL-02-ORG\",\"price\":15999,\"currency\":\"INR\",\"category\":\"Racing\",\"color\":\"Orange / Black\",\"sizes\":[\"7\",\"8\",\"9\",\"10\",\"11\",\"12\"],\"material\":\"Minimal mesh with internal support chassis\",\"avail"
+  },
+  "api_product": {
+    "path": "/api/products/aeropeak-vapor-stride",
+    "status": 200,
+    "preview": "{\"product\":{\"id\":\"pw-001\",\"slug\":\"aeropeak-vapor-stride\",\"name\":\"AeroPeak Vapor Stride\",\"brand\":\"AeroPeak\",\"sku\":\"AP-VS-01-NVY\",\"price\":12999,\"currency\":\"INR\",\"category\":\"Road\",\"color\":\"Navy / Volt\",\"sizes\":[\"7\",\"8\",\"9\",\"10\",\"11\",\"12\"],\"material\":\"Engineered mesh upper with TPU heel counter\",\"availa"
+  },
+  "api_missing": {
+    "path": "/api/products/does-not-exist",
+    "error": "HTTP Error 404: Not Found"
+  }
+}

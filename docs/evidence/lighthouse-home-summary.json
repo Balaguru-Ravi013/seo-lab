@@ -1,0 +1,12 @@
+{
+  "url": "http://127.0.0.1:3003/",
+  "seo": 100,
+  "performance": 98,
+  "accessibility": 98,
+  "lcp_ms": 2393.9543999999996,
+  "cls": 0,
+  "tbt_ms": 5,
+  "inp": "Not measured (lab TBT is not INP)",
+  "seo_failures": [],
+  "seo_audit_failures": []
+}

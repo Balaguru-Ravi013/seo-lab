@@ -1,0 +1,12 @@
+{
+  "url": "http://127.0.0.1:3003/shoes",
+  "seo": 100,
+  "performance": 95,
+  "accessibility": 98,
+  "lcp_ms": 2484.2754,
+  "cls": 0.1069258809234508,
+  "tbt_ms": 6,
+  "inp": "Not measured (lab TBT is not INP)",
+  "seo_failures": [],
+  "seo_audit_failures": []
+}

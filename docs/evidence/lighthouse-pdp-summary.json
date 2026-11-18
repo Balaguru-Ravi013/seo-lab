@@ -1,0 +1,12 @@
+{
+  "url": "http://127.0.0.1:3003/shoes/aeropeak-vapor-stride",
+  "seo": 100,
+  "performance": 89,
+  "accessibility": 91,
+  "lcp_ms": 2555.3489999999997,
+  "cls": 0.1859052247873633,
+  "tbt_ms": 13,
+  "inp": "Not measured (lab TBT is not INP)",
+  "seo_failures": [],
+  "seo_audit_failures": []
+}
