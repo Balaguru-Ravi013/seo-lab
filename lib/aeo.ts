@@ -97,7 +97,7 @@ export function getProductQuestions(product: Product): ProductQuestion[] {
   }
 
   questions.push({
-    question: `How do you use the ${product.name} step by step?`,
+    question: `How to use the ${product.name} step by step?`,
     answer: `Use the ${product.name} by selecting the appropriate UK size, fitting it securely, and taking it onto the terrain it was designed for: ${bestFor.toLowerCase()}. Check the product’s listed features and condition before each run, especially when the route is wet, loose, or uneven.`,
     format: "steps",
     items: [
@@ -111,6 +111,18 @@ export function getProductQuestions(product: Product): ProductQuestion[] {
   questions.push({
     question: `What is the difference between the ${product.name} and traditional alternatives?`,
     answer: `The ${product.name} is a ${product.category.toLowerCase()} running shoe built for ${bestFor.toLowerCase()}, with ${product.highlights.slice(0, 2).join(" and ").toLowerCase()}. Compared with a traditional road-focused shoe, it prioritizes the catalogued features needed for its intended terrain; compare the specifications, price, and category before choosing.`,
+  });
+
+  questions.push({
+    question: `Is the ${product.name} suitable for ${bestFor.toLowerCase()}?`,
+    answer: `Yes. The ${product.name} is listed as best for ${bestFor.toLowerCase()}. Its ${product.material.toLowerCase()} and ${product.highlights.slice(0, 2).join(" and ").toLowerCase()} are the catalogued features that support this intended use; compare the fit, specifications, and route demands before choosing a running shoe.`,
+  });
+
+  questions.push({
+    question: `What features does the ${product.name} have for its intended use?`,
+    answer: `The ${product.name} combines ${product.highlights.slice(0, 3).join(", ").toLowerCase()}, plus ${product.material.toLowerCase()}. These visible catalog features complement its stated best use of ${bestFor.toLowerCase()}; review the complete specifications and listed price when comparing it with other ${product.category.toLowerCase()} running shoes.`,
+    format: "list",
+    items: product.highlights.slice(0, 4),
   });
 
   return questions;
