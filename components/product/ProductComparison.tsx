@@ -18,8 +18,10 @@ export function ProductComparison({
         How {productName} compares
       </h2>
       <p className="text-sm text-muted">
-        Factual alternatives from the Pacewright catalog. Prices and categories are taken from the
-        same product dataset shown on each product page.
+        {productName} can be compared with the alternatives below by category, listed price, and
+        stated best use. The comparison uses only Pacewright catalog facts, so it helps identify
+        which option matches your running surface and intended use without claiming an overall
+        winner.
       </p>
       <ul className="space-y-3">
         {comparisons.map((item) => (

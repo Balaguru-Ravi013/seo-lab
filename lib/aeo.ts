@@ -10,6 +10,8 @@ export interface ProductFact {
 export interface ProductQuestion {
   question: string;
   answer: string;
+  format?: "paragraph" | "list" | "steps";
+  items?: string[];
 }
 
 function specValue(product: Product, label: string): string | undefined {
@@ -54,10 +56,7 @@ export function getProductKeyFacts(product: Product): ProductFact[] {
   ];
 }
 
-/**
- * Visible Q&A only — no FAQPage schema.
- * Answers reuse the same facts shown elsewhere on the page / in JSON-LD.
- */
+/** Visible, catalog-grounded Q&A with stand-alone, extractable answers. */
 export function getProductQuestions(product: Product): ProductQuestion[] {
   const bestFor = specValue(product, "Best for") ?? `${product.category.toLowerCase()} running`;
   const weight = specValue(product, "Weight");
@@ -67,35 +66,52 @@ export function getProductQuestions(product: Product): ProductQuestion[] {
   const questions: ProductQuestion[] = [
     {
       question: `What is the ${product.name}?`,
-      answer: `${product.name} is a ${product.brand} ${product.category.toLowerCase()} shoe. ${product.shortDescription}`,
+      answer: `${product.name} is a ${product.brand} ${product.category.toLowerCase()} running shoe designed for ${bestFor.toLowerCase()}. ${product.shortDescription} Its ${product.material.toLowerCase()}, ${product.highlights[0]?.toLowerCase() ?? "purpose-built construction"}, and ${weight ? `${weight} weight` : "purpose-built design"} support that intended use.`,
     },
     {
       question: `How much does the ${product.name} cost?`,
-      answer: `The ${product.name} costs ${formatPrice(product.price, product.currency)} at Pacewright and is currently ${getAvailabilityLabel(product.availability).toLowerCase()}.`,
+      answer: `The ${product.name} costs ${formatPrice(product.price, product.currency)} at Pacewright and is currently ${getAvailabilityLabel(product.availability).toLowerCase()}. The listed price applies to this ${product.brand} ${product.category.toLowerCase()} shoe in ${product.color}; choose a listed UK size on the product page before making a purchase decision.`,
     },
     {
       question: `What is the ${product.name} best for?`,
-      answer: `It is best for ${bestFor.toLowerCase()}.`,
+      answer: `The ${product.name} is best for ${bestFor.toLowerCase()}. Its ${product.highlights.slice(0, 2).join(" and ").toLowerCase()} pair with a ${drop ?? "purpose-built"} platform to suit that use case, rather than positioning it as a general-purpose option for every type of running.`,
     },
     {
       question: `What sizes does the ${product.name} come in?`,
-      answer: `Available UK sizes are ${product.sizes.join(", ")}.`,
+      answer: `The ${product.name} is offered in UK sizes ${product.sizes.join(", ")}. Availability shown on the page refers to the product overall, so choose the UK size you need in the size selector and confirm its current availability before completing a purchase.`,
     },
   ];
 
   if (weight || drop) {
     questions.push({
       question: `What are the key specs of the ${product.name}?`,
-      answer: [
-        drop ? `Drop: ${drop}.` : null,
-        weight ? `Weight: ${weight}.` : null,
-        surface ? `Surface: ${surface}.` : null,
-        `Material: ${product.material}.`,
-      ]
-        .filter(Boolean)
-        .join(" "),
+      answer: `The key specifications are listed below. Together, these catalog attributes describe the ${product.name}’s geometry, weight, intended terrain, and upper construction; use them to compare it consistently with other running shoes in the Pacewright catalog.`,
+      format: "list",
+      items: [
+        drop ? `Drop: ${drop}` : null,
+        weight ? `Weight: ${weight}` : null,
+        surface ? `Surface: ${surface}` : null,
+        `Material: ${product.material}`,
+      ].filter((item): item is string => item !== null),
     });
   }
+
+  questions.push({
+    question: `How do you use the ${product.name} step by step?`,
+    answer: `Use the ${product.name} by selecting the appropriate UK size, fitting it securely, and taking it onto the terrain it was designed for: ${bestFor.toLowerCase()}. Check the product’s listed features and condition before each run, especially when the route is wet, loose, or uneven.`,
+    format: "steps",
+    items: [
+      `Choose your UK size from ${product.sizes.join(", ")}.`,
+      "Fit the shoe securely before starting your run.",
+      `Use it for ${bestFor.toLowerCase()}.`,
+      "Review the outsole and upper after use, particularly on rough terrain.",
+    ],
+  });
+
+  questions.push({
+    question: `What is the difference between the ${product.name} and traditional alternatives?`,
+    answer: `The ${product.name} is a ${product.category.toLowerCase()} running shoe built for ${bestFor.toLowerCase()}, with ${product.highlights.slice(0, 2).join(" and ").toLowerCase()}. Compared with a traditional road-focused shoe, it prioritizes the catalogued features needed for its intended terrain; compare the specifications, price, and category before choosing.`,
+  });
 
   return questions;
 }

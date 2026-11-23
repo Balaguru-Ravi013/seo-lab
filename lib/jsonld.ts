@@ -1,4 +1,5 @@
 import { getProductBySlug } from "@/lib/products";
+import { getProductQuestions } from "@/lib/aeo";
 import { absoluteUrl, SITE_NAME, SITE_TAGLINE } from "@/lib/seo";
 import type { Availability, Product } from "@/types/product";
 
@@ -166,6 +167,18 @@ export function productPageJsonLd(product: Product) {
               name: related.brand,
             },
           })),
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${productUrl}#faq`,
+        mainEntity: getProductQuestions(product).map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: [item.answer, ...(item.items ?? [])].join(" "),
+          },
+        })),
       },
     ],
   };

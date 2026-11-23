@@ -3,6 +3,10 @@ import { ProductDetail } from "@/components/shoes/ProductDetail";
 import { getAllProducts, getProductBySlug } from "@/lib/products";
 import { buildProductMetadata } from "@/lib/seo";
 
+// The product selected by the URL is the page's primary content, so this route
+// intentionally waits for its slug instead of rendering a generic shell first.
+export const instant = false;
+
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
