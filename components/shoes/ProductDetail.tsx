@@ -141,7 +141,7 @@ export function ProductDetail({ product }: { product: Product }) {
 
       <ProductQuestions questions={questions} />
 
-      <ProductComparison productName={product.name} comparisons={comparisons} />
+      <ProductComparison product={product} comparisons={comparisons} />
 
       {related.length > 0 ? (
         <section className="space-y-4" aria-labelledby="related-heading">

@@ -122,6 +122,7 @@ export interface ComparisonPoint {
   brand: string;
   category: string;
   priceLabel: string;
+  bestFor: string;
   summary: string;
 }
 
@@ -142,6 +143,7 @@ export function getComparisonPoints(product: Product): ComparisonPoint[] {
         brand: related.brand,
         category: related.category,
         priceLabel: formatPrice(related.price, related.currency),
+        bestFor: relatedBestFor ?? "Not specified",
         summary: `${contrast}${relatedBestFor ? ` Best for ${relatedBestFor.toLowerCase()}.` : ""}`,
       };
     });
