@@ -33,7 +33,7 @@ Same local conditions for both sides:
 |---|---|---|---|
 | Unique metadata | No — all sampled routes use `Online Store` / generic description | Yes — unique titles/descriptions per home, PLP, and each PDP | `baseline-checks.json`, `optimized-checks.json` |
 | Canonical URL | Absent | Present on home, PLP, PDP | same |
-| Product JSON-LD | Absent | Present on PDP (`BreadcrumbList` + `Product` `@graph`) | optimized PDP HTML / checks |
+| PDP JSON-LD | Absent | Present on PDP (`BreadcrumbList` + `Product` + visible-Q&A `FAQPage` `@graph`) | optimized PDP HTML / checks |
 | ItemList JSON-LD | Absent | Present on PLP | optimized PLP checks |
 | Organization / WebSite JSON-LD | Absent | Present on home | optimized home checks |
 | Sitemap | 404 | 200 (`/sitemap.xml`, 14 `<loc>` entries) | curl / checks |
@@ -88,7 +88,7 @@ Optimized also adds canonical, Open Graph, and Twitter tags on those routes.
 |---|---|---|
 | Home | none | Organization, WebSite |
 | PLP | none | Organization, ItemList |
-| PDP | none | BreadcrumbList, Product |
+| PDP | none | BreadcrumbList, Product, FAQPage |
 
 Product JSON-LD intentionally omits invented ratings, reviews, shipping, and return policies.
 
@@ -131,9 +131,9 @@ Same catalog, prices, routes, and visual system as baseline. Optimized adds answ
 |---|---|---|
 | PDP summary | Thin `shortDescription` after JS only | **At a glance** summary in initial HTML |
 | PDP attributes | 3 specs / 2 highlights after JS | Full specs, highlights, sizes, SKU, material in HTML |
-| PDP Q&A | Absent | **Common questions** with catalog-derived answers (no FAQPage schema) |
-| PDP comparison | Related cards with weak “View” CTAs | Factual **How it compares** blurbs + descriptive links |
-| PLP hub context | Filter chrome only in shell | Category guide + brand index links |
+| PDP Q&A | Absent | **Common questions** with catalog-derived answers, bullet lists, and ordered How-to steps; mirrored in FAQPage JSON-LD |
+| PDP comparison | Related cards with weak “View” CTAs | Factual **How it compares** table, blurbs, and descriptive links |
+| PLP hub context | Filter chrome only in shell | Category guide + brand index links + filter-aware comparison table |
 | Retailer entity | Minimal | Home “What Pacewright sells” + PDP “sold by Pacewright” |
 | Fact consistency | N/A (facts often absent from HTML) | HTML facts aligned with Product JSON-LD via shared catalog helpers |
 
@@ -146,8 +146,8 @@ Answer-style systems need **groundable statements**: what the product is, price,
 | Bucket | Examples in this project |
 |---|---|
 | Established SEO that also helps answers | SSR facts, H1/H2 structure, spec lists, descriptive links, canonicals, Product JSON-LD aligned to visible content |
-| Emerging AEO presentation | Quotable summary block, visible Q&A, comparison blurbs, explicit entity wording |
-| Not done / not claimed | FAQPage schema chase, `llms.txt`, chatbot, guaranteed AI Overview / ChatGPT / Perplexity citations |
+| Emerging AEO presentation | Quotable summary block, visible Q&A, FAQPage markup matching visible content, comparison tables, explicit entity wording |
+| Not done / not claimed | FAQ rich-result guarantee, `llms.txt` adoption, chatbot, guaranteed AI Overview / ChatGPT / Perplexity citations |
 
 #### How to verify AEO structure (not AI citations)
 
@@ -156,7 +156,7 @@ curl -s http://127.0.0.1:3010/shoes/aeropeak-vapor-stride \
   | rg "At a glance|Common questions|How .* compares|Nitrogen-infused|application/ld\\+json"
 ```
 
-Evidence snapshot: `docs/evidence/optimized-checks.json` (`at_a_glance`, `common_questions`, `full_description_in_html`, `jsonld_types`).
+Evidence snapshot: `docs/evidence/optimized-checks.json` is historical. Re-capture it after major UI/schema changes; current code also emits `FAQPage` and renders PDP/PLP comparison tables.
 
 **Important:** These checks validate answer-ready document structure. They do **not** prove that any AI product will cite Pacewright.
 

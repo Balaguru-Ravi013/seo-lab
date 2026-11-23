@@ -16,7 +16,7 @@ It does **not** mean:
 - calling an LLM API
 - guaranteeing citations in Google AI Overviews, ChatGPT, Perplexity, or similar products
 - treating `llms.txt` as a proven ranking requirement
-- adding FAQPage schema only to chase rich results
+- treating FAQPage schema as a guarantee of rich results
 
 AEO in this lab builds on technical SEO. If product facts are missing from the initial HTML (baseline PLP/PDP), answer systems that rely on fetched page content have little trustworthy material to quote. Phase 4 fixed crawlability; Phase 5 improved **how** those facts are presented.
 
@@ -68,12 +68,13 @@ Even after JavaScript ran, baseline PDP copy was intentionally thin (`shortDescr
 |---|---|
 | `lib/aeo.ts` | Deterministic summary, key facts, Q&A, comparison points, category guide copy |
 | `components/product/ProductSummary.tsx` | “At a glance” summary + fact grid |
-| `components/product/ProductQuestions.tsx` | Visible Q&A sections (no FAQPage JSON-LD) |
-| `components/product/ProductComparison.tsx` | Related-product comparison blurbs + descriptive links |
+| `components/product/ProductQuestions.tsx` | Visible Q&A sections, including bullet and ordered-step formats |
+| `components/product/ProductComparison.tsx` | Related-product comparison table, blurbs, and descriptive links |
+| `components/shoes/ShoesCatalog.tsx` | Filter-aware PLP product-comparison table |
 | `components/shoes/ProductDetail.tsx` | Assembles AEO sections into the PDP |
 | `app/shoes/page.tsx` | Category guide + brand index for entity/hub clarity |
 | `app/page.tsx` | Retailer entity blurb (“What Pacewright sells”) |
-| `lib/jsonld.ts` → `productPageJsonLd()` | Product/Breadcrumb graph aligned to on-page facts |
+| `lib/jsonld.ts` → `productPageJsonLd()` | Product, BreadcrumbList, and FAQPage graph aligned to visible facts |
 
 All AEO strings are derived from `data/products.ts`. Nothing is free-typed per page in a way that can drift from the catalog.
 
@@ -90,9 +91,9 @@ All AEO strings are derived from `data/products.ts`. Nothing is free-typed per p
 9. Specifications (`<dl>` of label/value pairs)
 10. Retailer / brand / catalog internal links
 11. **Common questions** — question headings + factual answers
-12. **How it compares** — related products with price/category contrasts
+12. **How it compares** — related products with a semantic comparison table and descriptive contrasts
 13. Related product cards
-14. JSON-LD (`BreadcrumbList` + `Product`)
+14. JSON-LD (`BreadcrumbList` + `Product` + `FAQPage`)
 
 ### 4.3 Example: AeroPeak Vapor Stride
 
@@ -109,6 +110,10 @@ All AEO strings are derived from `data/products.ts`. Nothing is free-typed per p
 | What is it best for? | specification `Best for` |
 | What sizes are available? | `sizes[]` as UK sizes |
 | What are the key specs? | drop, weight, surface, material |
+| How to use it step by step? | UK sizes + stated best use; rendered as a four-step `<ol>` |
+| Is it suitable for its intended use? | `Best for`, material, and highlights |
+| What features support its intended use? | highlights + material; rendered with a bullet list |
+| How does it differ from traditional alternatives? | category + highlights + comparison guidance |
 
 **Comparison points** (from `getComparisonPoints`):
 
@@ -146,8 +151,8 @@ These are increasingly discussed for AI answer surfaces. Evidence that they impr
 |---|---|---|
 | Quotable product summary block | “At a glance” paragraph | Guaranteed featured-snippet or AI Overview use |
 | Question-and-answer sections | Visible HTML Q&A | Ranking boost from FAQPage rich results |
-| FAQPage schema | **Not implemented** | — |
-| Comparison-oriented sections | Related product contrasts from real attributes | That answer engines will prefer our comparisons |
+| FAQPage schema | Visible, catalog-derived Q&A emitted as `FAQPage` JSON-LD | Guaranteed FAQ rich results or citations |
+| Comparison-oriented sections | Related-product table and contrasts from real attributes | That answer engines will prefer our comparisons |
 | Strong entity wording (brand, retailer, category) | Explicit Pacewright / brand / category links | Knowledge Graph inclusion |
 | `llms.txt` / `llms-full.txt` | Dynamic routes from catalog | That this is required for AI search/rankings |
 | Prompt-targeted keyword stuffing | Avoided | — |
@@ -178,6 +183,7 @@ Answer quality collapses when the page says one price and schema says another. O
 | Specs | Spec `<dl>` + fact grid + Q&A | `additionalProperty` |
 | Sizes | Size controls + facts + Q&A | `Product.size` |
 | Related products | Comparison + cards | `isRelatedTo` |
+| FAQ answers | Visible Common questions sections | `FAQPage.mainEntity` |
 
 If catalog data changes, summaries/Q&A/schema regenerate from the same helpers—no hand-maintained duplicate copy.
 
@@ -191,14 +197,14 @@ If catalog data changes, summaries/Q&A/schema regenerate from the same helpers�
 | Concise product summary | No | Yes — At a glance |
 | Key attribute grid | Partial/thin after JS | Yes — full facts from catalog |
 | Question-shaped answers | No | Yes — Common questions |
-| Comparison context | Related cards only, weak anchors | Cards + factual comparison blurbs |
+| Comparison context | Related cards only, weak anchors | Cards + factual comparison table and blurbs |
 | Brand/category entity links | Weak / generic “View” | Explicit brand, category, catalog links |
 | Retailer entity statement | Minimal footer | Home + PDP “sold by Pacewright” |
-| Schema support for product entity | None | Product + BreadcrumbList |
+| Schema support for product entity | None | Product + BreadcrumbList + FAQPage |
 | Depth of PDP copy | Thin display fields | Full description + highlights + specs |
 | Risk of contradictory facts | Lower (thin) but incomplete | Controlled via shared helpers |
 
-**Measured HTML evidence (optimized PDP sample):** initial response included product name, full description markers (e.g. `Nitrogen-infused`), `At a glance`, and `Common questions` (`docs/evidence/optimized-checks.json`).
+**Evidence note:** files under `docs/evidence/` are historical build snapshots. Rebuild and capture new evidence after implementation changes; current PDPs also include expanded FAQs, ordered steps, and comparison tables.
 
 ---
 
@@ -274,7 +280,7 @@ Trade-offs:
 
 1. **AEO depends on crawlable facts first.** Thin client-rendered shells fail both classic SEO and answer extraction.
 2. **Generate answer content from the catalog**, don’t hand-write conflicting blurbs.
-3. **Prefer visible Q&A over FAQPage schema chasing** when you cannot honestly support rich-result eligibility.
+3. **Keep visible Q&A and FAQPage schema aligned.** Schema must reflect the questions and answers a reader can see; neither guarantees a rich result.
 4. **Separate established SEO from emerging AEO claims** in documentation—especially for portfolio work.
 5. **Lighthouse SEO will not grade AEO.** Build evidence from HTML and, later, careful live observations.
 

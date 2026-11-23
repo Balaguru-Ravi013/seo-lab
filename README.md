@@ -41,3 +41,5 @@ Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` when you need
 - `docs/aeo-optimization.md` — AEO goals, implementation, established vs emerging practices, evaluation
 - `docs/evidence/` — HTML snapshots and Lighthouse artifacts
 - `/llms.txt` and `/llms-full.txt` — experimental dynamic LLM index files (not a ranking requirement)
+
+> Evidence snapshots are point-in-time artifacts. Re-capture them after material UI, schema, or rendering changes.

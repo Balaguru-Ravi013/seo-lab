@@ -25,7 +25,7 @@ npm run dev
 |---|---|
 | `/` | Home + Organization/WebSite JSON-LD |
 | `/shoes` | PLP (SSR product list, filters) |
-| `/shoes/[slug]` | PDP (content + Product JSON-LD) |
+| `/shoes/[slug]` | PDP (content + Product, BreadcrumbList, and FAQPage JSON-LD) |
 | `/sitemap.xml` | Sitemap |
 | `/robots.txt` | Robots |
 | `/llms.txt` | Experimental LLM index |
@@ -62,11 +62,11 @@ curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/shoes/does-not-ex
 | `metadataBase` | `app/layout.tsx` 19–37 |
 | Sitemap | `app/sitemap.ts` 5–28 |
 | robots.txt | `app/robots.ts` 4–13 |
-| JSON-LD helpers | `lib/jsonld.ts` 18–172 |
+| JSON-LD helpers | `lib/jsonld.ts` |
 | JSON-LD render | `components/seo/JsonLd.tsx` |
 | Home schema wire-up | `app/page.tsx` 74 |
 | PLP ItemList wire-up | `components/shoes/ShoesCatalog.tsx` 85–92 |
-| PDP Product schema wire-up | `components/shoes/ProductDetail.tsx` 164–168 |
+| PDP Product / Breadcrumb / FAQ schema wire-up | `components/shoes/ProductDetail.tsx` |
 | `next/image` + alt | `components/product/ProductCard.tsx` 18–25; `ProductGallery.tsx` 24–32 |
 | Descriptive links | `components/product/ProductCard.tsx` 40–45 |
 | Breadcrumbs | `components/product/ProductBreadcrumbs.tsx` 8–31 |
@@ -86,7 +86,7 @@ curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/shoes/does-not-ex
 | Sitemap / robots | Missing | Present |
 | JSON-LD | None | Home / PLP / PDP |
 | Unknown product | Soft 200 | 404 |
-| AEO blocks | No | Summary, Q&A, compare |
+| AEO blocks | No | Summary, expanded Q&A, ordered How-to steps, comparison tables |
 
 Details + evidence: `docs/baseline-audit.md`, `docs/seo-aeo-comparison.md`, `docs/aeo-optimization.md`.
 
@@ -116,3 +116,4 @@ Use cache (`fetch` cache / `'use cache'`) when you add real APIs so you don’t 
 - Lighthouse SEO = 100 does not mean SEO is “done.”
 - `llms.txt` is experimental, not a ranking requirement.
 - No fake reviews/ratings in schema.
+- FAQPage schema must mirror visible, catalog-derived questions and answers; it does not guarantee a rich result.
